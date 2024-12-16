@@ -1,4 +1,4 @@
-package study;
+package study.stringCalculator;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

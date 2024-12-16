@@ -1,4 +1,4 @@
-package study;
+package study.stringCalculator;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
