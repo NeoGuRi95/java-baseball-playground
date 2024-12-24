@@ -3,6 +3,7 @@ package study.numberBaseballGame;
 import baseball.ui.InputView;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Scanner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -10,8 +11,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.assertj.core.api.Assertions.*;
 
 public class InputViewTest {
-
-    private InputView inputView = new InputView();
 
     public static void inputHandling(String input) {
         if (input == null) input = "\n";
@@ -30,11 +29,13 @@ public class InputViewTest {
     void invalidInputTest(String inputString, String expectedMessage) {
         // given
         inputHandling(inputString);
+        Scanner sc = new Scanner(System.in);
+        InputView inputView = new InputView(sc);
 
         // when
         // then
         assertThatThrownBy(() -> {
-            inputView.execute();
+            inputView.getUserNumber();
         }).isInstanceOf(IllegalArgumentException.class)
             .hasMessageContaining(expectedMessage);
     }

@@ -1,24 +1,19 @@
 package baseball.ui;
 
-import static java.lang.System.exit;
-
-import java.util.Scanner;
-
 public class ResultView {
 
-    private final Scanner sc;
-
-    public ResultView(Scanner sc) {
-        this.sc = sc;
+    public void execute(int strike, int ball) throws IllegalArgumentException {
+        validateBallAndStrike(strike, ball);
+        printResult(strike, ball);
     }
 
-    public void execute(int ball, int strike) throws IllegalArgumentException {
-        validateBallAndStrike(ball, strike);
-        printResult(ball, strike);
-        checkContinue(strike);
-    }
-
-    private void validateBallAndStrike(int ball, int strike) throws IllegalArgumentException {
+    /**
+     * 볼과 스트라이크의 개수가 정상 벙위인지 검증한다.
+     * @param strike 스트라이크 수
+     * @param ball 볼 수
+     * @throws IllegalArgumentException 스트라이크와 볼의 개수가 0이상 3이하가 아닐 경우
+     */
+    private void validateBallAndStrike(int strike, int ball) throws IllegalArgumentException {
         if (ball < 0 || ball > 3) {
             throw new IllegalArgumentException("볼의 개수는 0이상 3이하여야 합니다.");
         }
@@ -28,7 +23,12 @@ public class ResultView {
         }
     }
 
-    public void printResult(int ball, int strike) {
+    /**
+     * 볼과 스트라이크의 개수를 출력한다.
+     * @param strike 스트라이크 수
+     * @param ball 볼 수
+     */
+    public void printResult(int strike, int ball) {
         StringBuilder sb = new StringBuilder();
 
         if (ball > 0) {
@@ -46,24 +46,6 @@ public class ResultView {
         System.out.println(sb);
     }
 
-    public void checkContinue(int strike) throws IllegalArgumentException {
-        if (strike < 3) return;
 
-        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-
-        String inputString = sc.nextLine();
-        UserInputValidator.validateDigits(inputString, 1, 1);
-        UserInputValidator.validateRange(inputString, 1, 2);
-        int inputNumber = Integer.parseInt(inputString);
-
-        if (inputNumber == 1) {
-            return;
-        }
-
-        if (inputNumber == 2) {
-            exit(0);
-        }
-    }
 
 }
